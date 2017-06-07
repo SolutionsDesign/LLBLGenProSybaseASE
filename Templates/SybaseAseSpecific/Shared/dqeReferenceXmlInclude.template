@@ -1,0 +1,4 @@
+﻿	<Reference Include="SD.LLBLGen.Pro.DQE.SybaseAse, Version=5.0.0.0, Culture=neutral, PublicKeyToken=9cefef5efb873f53, processorArchitecture=MSIL">
+		<SpecificVersion>True</SpecificVersion>
+		<HintPath><[RuntimeLibraryHintPath]></HintPath>
+	</Reference>

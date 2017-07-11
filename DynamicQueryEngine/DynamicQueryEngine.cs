@@ -127,9 +127,9 @@ namespace SD.LLBLGen.Pro.DQE.SybaseAse
 			TraceHelper.WriteLineIf(Switch.TraceInfo, "CreateSingleTargetInsertDQ", "Method Enter");
 			QueryFragments fragments = new QueryFragments();
 			fragments.AddFormatted("INSERT INTO {0}", this.Creator.CreateObjectName(fieldsPersistenceInfo[0]));
-			DelimitedStringList fieldNames = fragments.AddCommaFragmentList(true);
+			var fieldNames = fragments.AddCommaDelimitedQueryFragments(true);
 			fragments.AddFragment("VALUES");
-			DelimitedStringList valueFragments = fragments.AddCommaFragmentList(true);
+			var valueFragments = fragments.AddCommaDelimitedQueryFragments(true);
 
 			DbParameter newParameter;
 			bool hasIdentity = false;
@@ -144,7 +144,7 @@ namespace SD.LLBLGen.Pro.DQE.SybaseAse
 					{
 						continue;
 					}
-					fieldNames.Add(this.Creator.CreateFieldNameSimple(persistenceInfo, field.Name));
+					fieldNames.AddFragment(this.Creator.CreateFieldNameSimple(persistenceInfo, field.Name));
 					AppendFieldToValueFragmentsForInsert(query, fieldToParameter, valueFragments, field, persistenceInfo);
 				}
 				else
@@ -162,8 +162,6 @@ namespace SD.LLBLGen.Pro.DQE.SybaseAse
 				if(hasIdentity)
 				{
 					// a table with just 1 identity field, use a special case query: INSERT INTO table values ()
-					fieldNames.Clear();
-					valueFragments.Clear();
 					fragments.AddFragment("()");
 				}
 				else
@@ -252,7 +250,7 @@ namespace SD.LLBLGen.Pro.DQE.SybaseAse
 			fragments.AddFragment("SELECT");
 			StringPlaceHolder distinctPlaceholder = fragments.AddPlaceHolder();
 			StringPlaceHolder topPlaceholder = fragments.AddPlaceHolder();
-			DelimitedStringList projection = fragments.AddCommaFragmentList(false);
+			var projection = fragments.AddCommaDelimitedQueryFragments(false);
 
 			UniqueList<string> fieldNamesInSelectList;
 			bool distinctViolatingTypesFound;
@@ -304,6 +302,7 @@ namespace SD.LLBLGen.Pro.DQE.SybaseAse
 			TraceHelper.WriteIf(Switch.TraceVerbose, query, "Generated Sql query");
 			TraceHelper.WriteLineIf(Switch.TraceInfo, "CreateSelectDQ", "Method Exit");
 		}
+
 
 		/// <summary>
 		/// Creates a new Select Query which is ready to use, based on the specified select list and the specified set of relations.

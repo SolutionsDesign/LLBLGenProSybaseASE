@@ -110,6 +110,23 @@ namespace SD.LLBLGen.Pro.DQE.SybaseAse
 
 
 		/// <summary>
+		/// Routine which creates a valid identifier string for the plain identifier string passed in and appends the fragments to the queryfragments specified. 
+		/// For example, the identifier will be surrounded by "[]" on sqlserver. If the specified rawIdentifier needs wrapping with e.g. [], the [ and ] characters are
+		/// added as separate fragments to toAppendTo so no string concatenation has to take place. Use this method over CreateValidAlias if possible.
+		/// </summary>
+		/// <param name="toAppendTo">the fragments container to append the fragments to.</param>
+		/// <param name="rawIdentifier">the plain identifier string to make valid</param>
+		public override void AppendValidIdentifier(QueryFragments toAppendTo, string rawIdentifier)
+		{
+			if(string.IsNullOrEmpty(rawIdentifier))
+			{
+				return;
+			}
+			toAppendTo.AddFragment(rawIdentifier);
+		}
+
+
+		/// <summary>
 		/// Determines the db type name for value.
 		/// </summary>
 		/// <param name="value">The value.</param>
@@ -274,16 +291,6 @@ namespace SD.LLBLGen.Pro.DQE.SybaseAse
 
 
 		/// <summary>
-		/// Creates a name usable for a Parameter, based on "p" and a unique marker.
-		/// </summary>
-		/// <returns>Usable parameter name.</returns>
-		protected override string CreateParameterName()
-		{
-			return this.CreateParameterName("@");
-		}
-
-
-		/// <summary>
 		/// Constructs a call to the aggregate function specified with the field name specified as parameter.
 		/// </summary>
 		/// <param name="function">The function.</param>
@@ -313,6 +320,14 @@ namespace SD.LLBLGen.Pro.DQE.SybaseAse
 
 
 		#region Class Property Declarations
+		/// <summary>
+		/// Gets the parameter prefix, if required. If no parameter prefix is required, this property will return the empty string (by default it returns the empty string).
+		/// </summary>
+		protected override string ParameterPrefix
+		{
+			get { return "@"; }
+		}
+
 		/// <summary>
 		/// Gets the DbProviderFactory instance to use.
 		/// </summary>

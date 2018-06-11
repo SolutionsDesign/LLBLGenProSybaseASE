@@ -34,7 +34,7 @@ The driver supports:
 -   numeric identity (Identity columns) are always set to DBType `int`.
 
 ### Compiling the Driver
-To compile the driver, make sure the references in the SybaseAsaDBDriver csproj file are updated and point to the [LLBLGen Pro](http://www.llblgen.com) v5.2.x designer installation. The driver dll is self-signed. Compiling is simple: just compile the csproj file. 
+To compile the driver, make sure the references in the SybaseAseDBDriver csproj file are updated and point to the [LLBLGen Pro](http://www.llblgen.com) v5.2.x designer installation. The driver dll is self-signed. Compiling is simple: just compile the csproj file. 
 
 #### Deploying the driver
 To use the driver, place the compiled dll it in the following folder: `<[LLBLGen Pro](http://www.llblgen.com) installation folder>\Drivers\SybaseASE`. 
@@ -46,7 +46,7 @@ To see whether the driver is loaded by the designer, start the designer and go t
 Drivers in [LLBLGen Pro](http://www.llblgen.com) use a GUID as 'ID'. This ID is hardcoded and is specified in the driver.config file and the DBDriver class. As this ID is also used in the templates
 it's key you keep this ID the same as it is today. If you fork this codebase and change that ID, templates shipped with the designer won't work with the driver. 
 
-The ID for Sybase ASA is: `3FABDE1A-21DF-4fcb-96FD-BBFA8F18B1EA`
+The ID for Sybase ASE is: `A3076322-977C-4e28-BFF4-F25ED096D1DB`
 
 ### Compiling the Dynamic Query Engine (DQE)
 To compile the DQE, make sure the references in the SybaseAseDQE csproj are updated and point to the ORMSupportClasses dll. The DQE dll is self-signed. The ORM Support classes package is [also available on nuget](https://www.nuget.org/packages/SD.LLBLGen.Pro.ORMSupportClasses/), for easy referencing.
